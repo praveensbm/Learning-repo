@@ -25,6 +25,7 @@ public class ControllerServlet extends HttpServlet
 {
     private static final String ACTION_KEY = "action";
     private static final String VIEW_CAR_LIST_ACTION = "viewCarList";
+    private static final String VIEW_CAR_BYID_ACTION = "viewCarById";
     private static final String ADD_CAR_ACTION = "addCar";
     private static final String SAVE_CAR_ACTION = "saveCar";
     private static final String EDIT_CAR_ACTION = "editCar";
@@ -128,7 +129,24 @@ public class ControllerServlet extends HttpServlet
 			//Set the found cars in request with name as 'carList'
 			//Set the destination page to carList.jsp
             
-        }                    
+        }
+        else if(VIEW_CAR_BYID_ACTION.equals(actionName))
+        {            
+            //TODO 4 
+			//Use carDao to get the list of the cars
+        	String[] ids = request.getParameterValues("id");
+        	//CarDTO cars = carDAO.findById(Integer.valueOf(ids[0]));
+        	CarDTO cars = carDAO.findById(1);
+			//Set the list in request with attribute name as 'carList'
+        	request.setAttribute("cars", cars);
+        	
+			//Set the destination page to carList.jsp
+			destinationPage = "/carList.jsp";
+			
+//			System.out.println(cars.get(0).getModel());
+			System.out.println("viewCarList: page set for destination");
+			
+        }
         else
         {
             String errorMessage = "[" + actionName + "] is not a valid action.";

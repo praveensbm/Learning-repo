@@ -1,0 +1,157 @@
+CI : continuous integration (A development methodology of daily developer integrations verified by automated builds.)
+================================
+All the tools throughout your development and deployment porcess uses the same tools.
+
+
+
+
+
+
+
+
+
+
+Tools Used
+================
+Build tools - Maven/Gradle/Ant
+	1) Gradle (build tool - in groovy format) official plugin for eclipse: buildship, is a official plugin provided by gradle.
+	2) Follow convention over configuration- much configurations are not required, there are soem default conventions provided by tools and developer rely on that.
+
+Build (CI) server - Jenkins
+	1) build server iliminates a symdrome like "it works on my machine"
+	2) build server performs multiple task based on our configuration.
+		a) Compilation
+		b) Test execution - JUNIT
+		c) Database integration
+		d) code inspection - SOANR
+		e) Automated deployment - 
+		f) Documentation generation - produces build report and metrics
+
+SCM (Source Control management) GIT : disconnected architecture, all the change hitory is available on local machine.
+
+SONAR Qube : used for sattic code analysis
+
+Scrum : how you want to deliver
+TDD: how you want to develop
+
+
+TDD : Test Driven development (RED-GREEN-REFACTOR)- use of mocking object by mockito in Junit.
+BDD : Business driven development
+
+
+GRADLE:
+=================
+1) We can create user defined task in build.gradle file like below, use of this is to upgrade properties of old task.
+	task myTask{
+		doLast(){
+			print "Hello, world!";
+		}
+	}
+2) Gradle use lot of builtin task via plugins.
+3) apply plugin: 'eclipse-wtp' - this plugin is used to use web application related tasks.
+4) 
+
+
+GIT:
+==============
+1) git init - very first command to initiate a work directory as a git repository (".git" folder is created, called of database of git)
+2) STAGE - git add <projectName>/*
+3) STATUS - git status - check the status of your file
+4) RESET - 
+	a) git reset <projectName>/* - remove all the staged files
+	b) git reset HEAD - if your project is commited once and you have HEAD of that.
+	c) git rm --cached <file name> - remove specific file from staging area.
+5) COMMIT - git commit -m "initial commit" - commited in master branch - commit the changes whihc are in staging area.
+6) LOGS - check logs - git log - it prints number of commits (showman value), which is basically a revision number of git and if required we can directly jump to that revision for experimental changes.
+7) ALIAS - git remote add <alias> <remote-repo-URL> - it will create a alias to remote branch
+8) VERBOSE - git remote -v - check verbose
+9) PUSH - git push <alias> <branch name> - create a connection with shared repo and push the chnages into shared repository.
+
+10) FETCH - git fetch <alias> - it is used to fetch data from remote shared repo, it fetches all the branches.
+	a) git fetches only contents in remote tracking branch (read only) in your current repo.
+	b) we have to merge it first with our local repo before making any changes.
+	
+11) MERGE - merge remote repo changes with local repo.
+	a) git merge <branch_name> - merges the code in current branch, 
+	
+12) BRANCH - 
+	a) git branch - show all the local branches
+	b) git branch -r - show all remote branches
+	c) git branch -a - show both (remote branches is in red color whereas local branches are in green color)
+
+13) CREATE BRANCH - git branch <branch_name>
+14) CHECKOUT - git checkout <branch_name> - switch to new branch, modify the content as well.
+15) DELETE : 
+	a) git branch -d <branch_name>
+	
+4) STASH - somewhere in between stage and commit.
+7) PULL - FETCH+MERGE - 
+8) CLONE - create new git repo, which will be a clone of remote repo.
+
+
+a) .gitignore - it is a file which is used to ignore some of the files or folder while commiting the changes, present in project root folder
+
+Shared repository
+=====================
+1) create a empty folder - mkdir <foldername>.git - any shared repo should have .git name - it is good to have but not mandatory.
+2) go to inside of that folder.
+3) git init --bare - no work tree (.git folder will not be created) 
+
+Mockito
+========================
+
+1) proxy
+2) method stubbing
+3) verification
+
+Setup 
+Execution
+verification
+
+Jenkins - continuous build
+=============================
+1) set JAVA_HOME=D:\CI_training\tools\jdk1.8.0_121
+2) set GRADLE_HOME=D:\CI_training\tools\gradle-2.13
+3) set GIT_HOME=C:\Program Files\Git
+4) java -jar <jenkins war location> --httpPort=<port_number> (double hiphen in case of linum system)
+		java -jar jenkins.war --httpPort=9999
+5) Plugins areprovide in .hpi format
+6) manage jenkins --> manage plugins --> advanced --> upload plugin --> choose .hpi file provided --> upload it
+7) manage jenkins --> Global tool configuration --> ADD JDK, GIT, GRADLE --> save it
+8) Create new job
+	Add general details - like project name and description
+	Add source code management - shared repo path, credentials
+	Build triggers - 
+	
+9) apply sonar qube in jenkins - via jenkins plugins
+	or create a task in gradle file and use it as a task.
+
+
+SONAR Qube in local workspace
+=========================================
+put in build.gradle file
+--------
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+ sonarProperties {
+   property "sonar.projectName", "My Project Name"
+   property "sonar.projectKey", "org.sonarqube:java-gradle-simple"
+ }
+}
+
+to use sonar qube service (to see the result) we use sonar tool, and start the service. default port is 9000. we can chnage it as well.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
